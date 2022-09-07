@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,26 +18,10 @@ use Illuminate\Support\Facades\Route;
 // Giving the name of the view
 
 Route::get('/', function () {
-    return view('posts');
-    // return ['foo' => 'bar']; // JSON
+    return view('posts', ['posts' => Post::all()]);
 });
 
 
 Route::get('posts/{post}', function ($slug) {
-    if (!file_exists($path = __DIR__ . "/../resources/posts/{$slug}.html")) {
-        //dump die - dd
-        //dump die debug - ddd
-        // ddd('file does not exist');
-
-
-        // abort(404);
-
-
-        return redirect('/');
-    }
-
-    //Cache
-    $post = cache()->remember("posts.{$slug}", now()->addHour(), fn() => file_get_contents($path));
-
-    return view('post', ['post' => $post]);
-})->where('post', '[A-z\-_]+'); //FOR $slug validation -> whereAlpha(), whereNumber()
+    return view('post', ['post' => Post::find($slug)]);
+})->where('post', '[A-z\-_]+');
