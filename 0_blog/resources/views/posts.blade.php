@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-layout>
     @foreach ($posts as $post)
     <article class="{{$loop->even ? 'foobar' : ''}}">
         <h1>
@@ -11,4 +9,7 @@
         </div>
     </article>
     @endforeach
-@endsection
+</x-layout>
+<!-- content="Hello world" directly in the x-layoyt tag -->
+<!-- <x-slot name='content'> -->
+<!-- </x-slot> -->
