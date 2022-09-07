@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Every route that we use in the application
+// Giving the name of the view
+
 Route::get('/', function () {
     return view('welcome');
+    // return ['foo' => 'bar']; // JSON
 });
