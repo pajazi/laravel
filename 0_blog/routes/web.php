@@ -19,7 +19,11 @@ use App\Models\Post;
 // Giving the name of the view
 
 Route::get('/', function () {
-    return view('posts', ['posts' => Post::all()]);
+    // \Illuminate\Support\Facades\DB::listen(function ($query) {
+    //     logger($query->sql);
+    // });
+
+    return view('posts', ['posts' => Post::with('category')->get()]); // N+1 problem solved!! 
 });
 
 
