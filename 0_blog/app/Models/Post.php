@@ -12,4 +12,9 @@ class Post extends Model
     protected $guarder = ['id'];
 
     protected $fillable = ['title', 'excerpt', 'body', 'slug'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug'; // find element by specific property
+    }
 }
