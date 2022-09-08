@@ -3,6 +3,7 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
     //     logger($query->sql);
     // });
 
-    return view('posts', ['posts' => Post::with('category', 'user')->get()]); // N+1 problem solved!! 
+    return view('posts', ['posts' => Post::latest()->get()]); // N+1 problem solved!! 
 });
 
 
@@ -34,5 +35,11 @@ Route::get('posts/{post}', function (Post $post) { // Post::where('slug', $post)
 Route::get('categories/{category:slug}', function (Category $category) {
     return view('posts', [
         'posts' => $category->posts
+    ]);
+});
+
+Route::get('authors/{author:username}', function (User $author) {
+    return view('posts', [
+        'posts' => $author->posts
     ]);
 });
