@@ -23,7 +23,7 @@ Route::get('/', function () {
     //     logger($query->sql);
     // });
 
-    return view('posts', ['posts' => Post::with('category')->get()]); // N+1 problem solved!! 
+    return view('posts', ['posts' => Post::with('category', 'user')->get()]); // N+1 problem solved!! 
 });
 
 
