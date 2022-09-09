@@ -20,11 +20,14 @@ use App\Models\User;
 // Giving the name of the view
 
 Route::get('/', function () {
-    // \Illuminate\Support\Facades\DB::listen(function ($query) {
-    //     logger($query->sql);
-    // });
+    $posts = Post::latest();
 
-    return view('posts', ['posts' => Post::latest()->get(), 'categories' => Category::all()]); // N+1 problem solved!!
+    if (request('search')) {
+        $posts->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
+
+    return view('posts', ['posts' => $posts->get(), 'categories' => Category::all()]); // N+1 problem solved!!
 })->name('home');
 
 
